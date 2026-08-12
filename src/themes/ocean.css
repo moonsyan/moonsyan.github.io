@@ -1,0 +1,10 @@
+:root[data-theme='ocean'] {
+  --bg: #f2f6f9;
+  --bg-card: #ffffff;
+  --bg-soft: #e7eef3;
+  --text: #26313a;
+  --text-muted: #7d8f9c;
+  --border: #d7e2ea;
+  --accent: #2f8fba;
+  --accent-contrast: #ffffff;
+}
