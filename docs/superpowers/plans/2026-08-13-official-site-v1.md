@@ -805,15 +805,21 @@ git commit -m "feat: 全局样式与 App 骨架(语言/主题切换)"
 ### Task 5: Hero 区与截图占位组件
 
 **Files:**
+- Create: `src/lib/constants.ts`
 - Create: `src/components/HeroSection.vue`
 - Create: `src/components/ScreenshotPlaceholder.vue`
 
 **Interfaces:**
 - Consumes: `useI18n().t`(键:`hero.tagline`、`hero.desc`、`hero.cta`、`hero.ctaSub`、`placeholder.caption`)
-- Produces: `HeroSection`(含 `ScreenshotPlaceholder`);真实截图后续放入 `public/screenshots/` 后替换占位组件
-- RELEASE_URL 常量:`https://github.com/moonsyan/mkEditor/releases/latest`(Task 6 复用)
+- Produces: `src/lib/constants.ts` 导出 `RELEASE_URL = 'https://github.com/moonsyan/mkEditor/releases/latest'`(Task 6 复用);`HeroSection`(含 `ScreenshotPlaceholder`);真实截图后续放入 `public/screenshots/` 后替换占位组件
 
-- [ ] **Step 1: 写 `src/components/ScreenshotPlaceholder.vue`**(CSS 绘制编辑器窗口骨架,自适应主题变量)
+- [ ] **Step 1: 写 `src/lib/constants.ts`**
+
+```ts
+export const RELEASE_URL = 'https://github.com/moonsyan/mkEditor/releases/latest'
+```
+
+- [ ] **Step 2: 写 `src/components/ScreenshotPlaceholder.vue`**(CSS 绘制编辑器窗口骨架,自适应主题变量)
 
 ```vue
 <script setup lang="ts">
@@ -948,9 +954,8 @@ figcaption {
 ```vue
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
+import { RELEASE_URL } from '../lib/constants'
 import ScreenshotPlaceholder from './ScreenshotPlaceholder.vue'
-
-export const RELEASE_URL = 'https://github.com/moonsyan/mkEditor/releases/latest'
 
 const { t } = useI18n()
 </script>
@@ -1149,7 +1154,7 @@ const features = [
 ```vue
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
-import { RELEASE_URL } from './HeroSection.vue'
+import { RELEASE_URL } from '../lib/constants'
 
 const { t } = useI18n()
 </script>
@@ -1317,7 +1322,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -1393,5 +1398,5 @@ Expected: 三个 job 步全部绿色
 
 - **Spec 覆盖**:架构目录(Task 1)、useI18n + 文案(Task 2)、useTheme + 4 主题(Task 3)、App 骨架与切换控件(Task 4)、Hero + 截图占位(Task 5)、FeatureGrid/Download/Footer(Task 6)、部署(Task 7)——spec 中"数据流/组件职责/错误处理/测试/部署"各节均有对应任务 ✅
 - **占位符**:所有代码块均含完整实现,无 TBD/TODO ✅
-- **类型一致性**:`useI18n().t(key)`、`setLocale(l)`、`useTheme().setTheme(t)`、`THEMES`、`RELEASE_URL` 在各任务间签名一致(RELEASE_URL 由 HeroSection 导出、DownloadSection 复用,已在 Task 5/6 写明)✅
+- **类型一致性**:`useI18n().t(key)`、`setLocale(l)`、`useTheme().setTheme(t)`、`THEMES`、`RELEASE_URL` 在各任务间签名一致(RELEASE_URL 由 `src/lib/constants.ts` 导出,HeroSection 与 DownloadSection 均从该模块导入)✅
 - **边界遵守**:未引入 vue-router/vue-i18n;lockfile 已含在 Task 1 提交中;base:'/' 已在 vite 配置 ✅
