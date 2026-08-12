@@ -4,6 +4,9 @@ import { useTheme, THEMES } from './composables/useTheme'
 import type { Theme } from './composables/useTheme'
 import type { Locale } from './composables/useI18n'
 import HeroSection from './components/HeroSection.vue'
+import FeatureGrid from './components/FeatureGrid.vue'
+import DownloadSection from './components/DownloadSection.vue'
+import SiteFooter from './components/SiteFooter.vue'
 
 const { locale, setLocale, t } = useI18n()
 const { theme, setTheme } = useTheme()
@@ -45,10 +48,9 @@ const DOT_STYLE: Record<Theme, string> = {
 
   <main class="site-main">
     <HeroSection />
-    <!-- Task 6: FeatureGrid / DownloadSection -->
+    <FeatureGrid />
+    <DownloadSection />
   </main>
 
-  <footer class="site-footer">
-    <!-- Task 6: SiteFooter -->
-  </footer>
+  <SiteFooter />
 </template>
