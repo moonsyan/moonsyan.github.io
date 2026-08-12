@@ -3,6 +3,7 @@ import { useI18n } from './composables/useI18n'
 import { useTheme, THEMES } from './composables/useTheme'
 import type { Theme } from './composables/useTheme'
 import type { Locale } from './composables/useI18n'
+import HeroSection from './components/HeroSection.vue'
 
 const { locale, setLocale, t } = useI18n()
 const { theme, setTheme } = useTheme()
@@ -43,7 +44,7 @@ const DOT_STYLE: Record<Theme, string> = {
   </header>
 
   <main class="site-main">
-    <!-- Task 5: HeroSection -->
+    <HeroSection />
     <!-- Task 6: FeatureGrid / DownloadSection -->
   </main>
 
