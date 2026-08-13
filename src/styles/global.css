@@ -1,122 +1,135 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* 全局设计令牌：柔和极简（风格 Demo V5 定稿）
+   暖灰绿纸白底 + 鼠尾草绿主色，大圆角、轻阴影、大留白、轻字重。
+   明暗主题只切换颜色变量，不改变尺寸，避免布局跳动（WEB-008）。 */
 
 :root {
-  color-scheme: light;
-}
-:root[data-theme='dark'] {
-  color-scheme: dark;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+
+  --bg-page: #f6f7f4;
+  --bg-card: #ffffff;
+  --bg-soft: #f0f2ec;
+  --bg-hover: #edf0e9;
+  --text-1: #39423c;
+  --text-2: #778079;
+  --text-3: #aab2aa;
+  --border: #e7eae4;
+  --border-light: #eef1ea;
+  --accent: #5f9e7e;
+  --accent-deep: #48876a;
+  --accent-tint: #edf4ef;
+  --accent-ring: rgba(95, 158, 126, 0.16);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  /* 柔和阴影：近距轻影 + 悬停时的弥散上浮影 */
+  --shadow-sm: 0 1px 2px rgba(57, 66, 60, 0.04);
+  --shadow-md: 0 16px 40px rgba(57, 66, 60, 0.09);
+  --transition: 200ms cubic-bezier(0.25, 0.7, 0.35, 1);
+
+  /* Element Plus 主色对齐（柔和鼠尾草绿） */
+  --el-color-primary: #5f9e7e;
+  --el-color-primary-light-3: #82b398;
+  --el-color-primary-light-5: #a4c7b4;
+  --el-color-primary-light-7: #c7dbd0;
+  --el-color-primary-light-8: #d8e7df;
+  --el-color-primary-light-9: #edf4ef;
+  --el-color-primary-dark-2: #48876a;
 }
 
-html {
-  scroll-behavior: smooth;
+html[data-theme='dark'] {
+  --bg-page: #151815;
+  --bg-card: #1d211d;
+  --bg-soft: #242923;
+  --bg-hover: #282e27;
+  --text-1: #e9ece8;
+  --text-2: #a5aea5;
+  --text-3: #6e776e;
+  --border: #2c322b;
+  --border-light: #242a23;
+  --accent: #7cc0a2;
+  --accent-deep: #95cfb4;
+  --accent-tint: #1e2b24;
+  --accent-ring: rgba(124, 192, 162, 0.2);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.4);
+
+  --el-color-primary: #7cc0a2;
+  --el-color-primary-dark-2: #95cfb4;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
-    'Microsoft YaHei', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg-page);
+  color: var(--text-1);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background var(--transition), color var(--transition);
 }
 
 a {
-  color: var(--accent);
   text-decoration: none;
+  color: inherit;
+}
+
+/* 统一焦点态（SEO-004：焦点状态清晰） */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
 }
 
 .container {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 28px;
 }
 
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  backdrop-filter: blur(8px);
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  border-bottom: 1px solid var(--border);
-}
-
-.site-header .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 600;
-  font-size: 16px;
-  color: var(--text);
-}
-
-.brand img {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-}
-
-.header-controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.lang-toggle button {
-  background: var(--bg-soft);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  padding: 4px 12px;
+/* 本地徽标 */
+.tag-local {
+  display: inline-block;
+  font-size: 11px;
+  padding: 3px 10px;
   border-radius: 999px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  background: var(--accent-tint);
+  color: var(--accent-deep);
+  font-weight: 500;
 }
 
-.lang-toggle button.active {
+/* 通用空状态（无 Element Plus 依赖的柔和空态卡片） */
+.soft-empty {
+  text-align: center;
+  color: var(--text-3);
+  font-size: 14px;
+  padding: 48px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.soft-empty b {
+  color: var(--text-2);
+  font-weight: 500;
+}
+.soft-empty .soft-empty-action {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 9px 22px;
+  border: none;
+  border-radius: 999px;
   background: var(--accent);
-  color: var(--accent-contrast);
-  border-color: var(--accent);
-}
-
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.theme-dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
+  color: #fff;
+  font-size: 13.5px;
+  font-family: inherit;
   cursor: pointer;
-  padding: 0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background var(--transition);
 }
-
-.theme-dot:hover {
-  transform: scale(1.2);
-}
-
-.theme-dot.active {
-  box-shadow: 0 0 0 2px var(--accent);
-}
-
-.site-main {
-  padding: 48px 0 24px;
+.soft-empty .soft-empty-action:hover {
+  background: var(--accent-deep);
 }
