@@ -100,7 +100,7 @@ function unitName(id: string) {
         {{ value }} {{ unitName(from) }} = {{ result.output }} {{ unitName(to) }}
       </span>
     </div>
-    <p class="privacy-hint">🛡 本地处理：所有计算在浏览器内完成；不同量纲之间不能混算。</p>
+    <p class="privacy-hint">本地处理：所有计算在浏览器内完成；不同量纲之间不能混算。</p>
   </div>
 </template>
 
@@ -122,5 +122,4 @@ function unitName(id: string) {
 .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .precision-label { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-2); }
 .formula { font-size: 13px; color: var(--text-2); font-family: var(--font-mono); }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

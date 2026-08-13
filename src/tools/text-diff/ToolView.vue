@@ -55,7 +55,7 @@ function loadExample() {
           id="diff-old"
           v-model="oldText"
           type="textarea"
-          :rows="9"
+          :rows="12"
           placeholder="粘贴修改前的文本"
           resize="vertical"
         />
@@ -66,7 +66,7 @@ function loadExample() {
           id="diff-new"
           v-model="newText"
           type="textarea"
-          :rows="9"
+          :rows="12"
           placeholder="粘贴修改后的文本"
           resize="vertical"
         />
@@ -100,19 +100,19 @@ function loadExample() {
       </el-radio-group>
     </div>
 
-    <p class="privacy-hint">🛡 本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
+    <p class="privacy-hint">本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
   </div>
 </template>
 
 <style scoped>
 .tool-view { display: flex; flex-direction: column; gap: 14px; }
-.run-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.run-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 20px; }
 @media (max-width: 768px) { .run-grid { grid-template-columns: 1fr; } }
 .field-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
 .field-hint { font-size: 12px; color: var(--text-3); margin: 0; }
 .diff-count { font-size: 13px; color: var(--text-2); margin: 0 0 8px; }
 .diff-pre {
-  margin: 0; padding: 14px; max-height: 340px; overflow: auto;
+  margin: 0; padding: 14px; max-height: 480px; overflow: auto;
   background: var(--bg-soft); border: 1px solid var(--border-light);
   border-radius: var(--radius-md); font-family: var(--font-mono);
   font-size: 13px; white-space: pre-wrap; word-break: break-all;
@@ -125,5 +125,4 @@ function loadExample() {
 }
 .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .mode-group { margin-left: auto; }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

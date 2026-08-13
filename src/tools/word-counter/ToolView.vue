@@ -55,7 +55,7 @@ function loadExample() {
         id="wc-input"
         v-model="input"
         type="textarea"
-        :rows="8"
+        :rows="10"
         placeholder="粘贴或输入要统计的文本"
         resize="vertical"
         @input="run"
@@ -82,7 +82,7 @@ function loadExample() {
       <el-button link type="primary" @click="loadExample">加载示例</el-button>
     </div>
 
-    <p class="privacy-hint">🛡 本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
+    <p class="privacy-hint">本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
   </div>
 </template>
 
@@ -104,5 +104,4 @@ function loadExample() {
   background: var(--bg-soft); border: 1px dashed var(--border); border-radius: var(--radius-md);
 }
 .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

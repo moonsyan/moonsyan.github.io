@@ -91,7 +91,7 @@ function loadExample() {
         id="regex-text"
         v-model="text"
         type="textarea"
-        :rows="6"
+        :rows="8"
         placeholder="粘贴用于匹配测试的文本"
         resize="vertical"
       />
@@ -135,7 +135,7 @@ function loadExample() {
       <el-button link type="primary" @click="loadExample">加载示例</el-button>
     </div>
 
-    <p class="privacy-hint">🛡 本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
+    <p class="privacy-hint">本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
   </div>
 </template>
 
@@ -147,7 +147,7 @@ function loadExample() {
 .pattern-row .el-input { max-width: 420px; }
 .match-count { font-size: 13px; color: var(--text-2); margin: 0 0 8px; }
 .match-list {
-  max-height: 300px; overflow: auto;
+  max-height: 460px; overflow: auto;
   border: 1px solid var(--border-light); border-radius: var(--radius-md);
 }
 .match-row {
@@ -167,5 +167,4 @@ function loadExample() {
   background: var(--bg-soft); border: 1px dashed var(--border); border-radius: var(--radius-md);
 }
 .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

@@ -8,11 +8,22 @@ import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { processJson, type JsonFormatMode, type JsonFormatResult } from './core'
 import { jsonFormatterInputSchema, EXAMPLE_VALID, EXAMPLE_INVALID } from './schema'
+import JsonTree, { type JsonValue } from '~/components/tool/JsonTree.vue'
 
 const input = ref('')
 const mode = ref<JsonFormatMode>('format')
 const indent = ref(2)
 const result = ref<JsonFormatResult | null>(null)
+
+// 格式化模式的结果转为树形数据（供 JsonTree 可折叠渲染）
+const treeData = computed<JsonValue | null>(() => {
+  if (mode.value !== 'format' || !result.value?.ok || !result.value.output) return null
+  try {
+    return JSON.parse(result.value.output) as JsonValue
+  } catch {
+    return null
+  }
+})
 
 // 分享链接携带的白名单选项（RUN-008）
 import { consumeSharedOptions } from '~/composables/useSharedOptions'
@@ -25,7 +36,11 @@ if (shared) {
 
 const hasResult = computed(() => result.value !== null)
 
+// 每次执行自增：作为 JsonTree 的 key，新结果自动重置折叠状态
+const runId = ref(0)
+
 function run() {
+  runId.value++
   const parsed = jsonFormatterInputSchema.safeParse({ text: input.value, mode: mode.value, indent: indent.value })
   if (!parsed.success) {
     result.value = { ok: false, message: parsed.error.errors[0]?.message ?? '输入校验失败' }
@@ -76,7 +91,7 @@ function downloadResult() {
           id="json-input"
           v-model="input"
           type="textarea"
-          :rows="12"
+          :rows="16"
           placeholder='粘贴 JSON，例如 {"name": "示例"}'
           resize="vertical"
         />
@@ -106,6 +121,8 @@ function downloadResult() {
           :closable="false"
           show-icon
         />
+        <!-- 格式化模式：可折叠的树形结果（嵌套结构可折叠/展开） -->
+        <JsonTree v-else-if="treeData" :data="treeData" :key="runId" />
         <pre v-else-if="result?.output" class="result-pre">{{ result.output }}</pre>
         <div v-else class="result-empty">执行后在此展示结果</div>
       </section>
@@ -134,7 +151,7 @@ function downloadResult() {
     </div>
 
     <!-- 隐私提示（RUN-005） -->
-    <p class="privacy-hint">🛡 本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
+    <p class="privacy-hint">本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
   </div>
 </template>
 
@@ -146,8 +163,8 @@ function downloadResult() {
 }
 .run-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 20px;
 }
 @media (max-width: 768px) {
   .run-grid {
@@ -177,7 +194,7 @@ function downloadResult() {
 .result-pre {
   margin: 0;
   padding: 14px;
-  max-height: 320px;
+  max-height: 640px;
   overflow: auto;
   background: var(--bg-soft);
   border: 1px solid var(--border-light);
@@ -215,10 +232,5 @@ function downloadResult() {
   gap: 6px;
   font-size: 13px;
   color: var(--text-2);
-}
-.privacy-hint {
-  font-size: 12.5px;
-  color: var(--text-3);
-  margin: 0;
 }
 </style>

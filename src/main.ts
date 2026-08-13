@@ -4,6 +4,10 @@ import App from './App.vue'
 import router from './router'
 import { registerGlobals } from './registerGlobals'
 import 'element-plus/dist/index.css'
+import './themes/light.css'
+import './themes/dark.css'
+import './themes/ocean.css'
+import './themes/rose.css'
 import './styles/global.css'
 
 const app = createApp(App)

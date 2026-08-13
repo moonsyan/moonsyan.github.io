@@ -45,7 +45,7 @@ async function copyResult() {
       <section aria-label="输入区">
         <label for="uni-input" class="field-label">{{ action === 'encode' ? '原始文本' : '转义文本' }}</label>
         <el-input
-          id="uni-input" v-model="input" type="textarea" :rows="10"
+          id="uni-input" v-model="input" type="textarea" :rows="12"
           :placeholder="action === 'encode' ? '填写要转换的文本，支持 Emoji' : '粘贴 \\uXXXX 或 \\u{...} 形式的转义文本'"
           resize="vertical"
         />
@@ -70,7 +70,7 @@ async function copyResult() {
         <el-radio-button value="decode">转义 → 文本</el-radio-button>
       </el-radio-group>
     </div>
-    <p class="privacy-hint">🛡 本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
+    <p class="privacy-hint">本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
   </div>
 </template>
 
@@ -82,7 +82,7 @@ async function copyResult() {
 .field-hint { font-size: 12px; color: var(--text-3); margin: 6px 0 0; }
 .result-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .result-pre {
-  margin: 0; padding: 14px; max-height: 320px; overflow: auto;
+  margin: 0; padding: 14px; max-height: 460px; overflow: auto;
   background: var(--bg-soft); border: 1px solid var(--border-light);
   border-radius: var(--radius-md); font-family: var(--font-mono);
   font-size: 13px; white-space: pre-wrap; word-break: break-all;
@@ -93,5 +93,4 @@ async function copyResult() {
 }
 .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .mode-group { margin-left: auto; }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

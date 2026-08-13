@@ -93,19 +93,19 @@ async function copyHtml() {
       <el-button link type="primary" @click="loadExample">加载示例</el-button>
     </div>
 
-    <p class="privacy-hint">🛡 本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
+    <p class="privacy-hint">本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
   </div>
 </template>
 
 <style scoped>
 .tool-view { display: flex; flex-direction: column; gap: 16px; }
-.run-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.run-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 20px; }
 @media (max-width: 768px) { .run-grid { grid-template-columns: 1fr; } }
 .field-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
 .field-hint { font-size: 12px; color: var(--text-3); margin: 6px 0 0; }
 .result-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .md-preview {
-  padding: 14px 18px; max-height: 360px; overflow: auto;
+  padding: 14px 18px; max-height: 640px; overflow: auto;
   background: var(--bg-card); border: 1px solid var(--border-light);
   border-radius: var(--radius-md); font-size: 14px; line-height: 1.7;
 }
@@ -125,5 +125,4 @@ async function copyHtml() {
   background: var(--bg-soft); border: 1px dashed var(--border); border-radius: var(--radius-md);
 }
 .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

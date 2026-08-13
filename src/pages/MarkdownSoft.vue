@@ -120,6 +120,8 @@ const mdPreview = toolBySlug.get('markdown-preview')
 .hero {
   text-align: center;
   padding: 48px 0 8px;
+  /* 与首页一致的顶部柔和主色光晕 */
+  background: radial-gradient(ellipse 65% 55% at 50% -12%, var(--accent-ring), transparent 72%);
 }
 .hero-mark {
   width: 72px;
@@ -158,34 +160,6 @@ const mdPreview = toolBySlug.get('markdown-preview')
   gap: 12px;
   margin-top: 30px;
   flex-wrap: wrap;
-}
-.btn {
-  padding: 12px 28px;
-  border-radius: 999px;
-  font-size: 14.5px;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition);
-}
-.btn.primary {
-  background: var(--text-1);
-  color: var(--bg-page);
-}
-.btn.primary:hover {
-  background: var(--accent-deep);
-  color: #fff;
-  transform: translateY(-1px);
-}
-.btn.ghost {
-  background: transparent;
-  color: var(--text-2);
-  border: 1px solid var(--border);
-}
-.btn.ghost:hover {
-  color: var(--accent-deep);
-  border-color: var(--accent);
 }
 .hero-note {
   margin: 16px 0 0;

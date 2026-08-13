@@ -47,7 +47,7 @@ async function copyResult() {
   <div class="tool-view">
     <section aria-label="输入区">
       <label for="case-input" class="field-label">原始文本</label>
-      <el-input id="case-input" v-model="input" type="textarea" :rows="5"
+      <el-input id="case-input" v-model="input" type="textarea" :rows="8"
         placeholder="如 user_name for HTTPServer demo" resize="vertical" />
       <p class="field-hint">分词规则：空格/中划线/下划线为分隔符；驼峰边界自动切分；连续大写视为一个词（HTTPServer → http server）。</p>
     </section>
@@ -70,7 +70,7 @@ async function copyResult() {
       <el-button @click="clearAll">清空</el-button>
       <el-button link type="primary" @click="input = EXAMPLE_TEXT">加载示例</el-button>
     </div>
-    <p class="privacy-hint">🛡 本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
+    <p class="privacy-hint">本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
   </div>
 </template>
 
@@ -80,7 +80,7 @@ async function copyResult() {
 .field-hint { font-size: 12px; color: var(--text-3); margin: 6px 0 0; line-height: 1.6; }
 .result-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .result-pre {
-  margin: 0; padding: 14px; max-height: 200px; overflow: auto;
+  margin: 0; padding: 14px; max-height: 400px; overflow: auto;
   background: var(--bg-soft); border: 1px solid var(--border-light);
   border-radius: var(--radius-md); font-family: var(--font-mono);
   font-size: 13px; white-space: pre-wrap; word-break: break-all;
@@ -90,5 +90,4 @@ async function copyResult() {
   background: var(--bg-soft); border: 1px dashed var(--border); border-radius: var(--radius-md);
 }
 .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

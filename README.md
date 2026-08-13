@@ -7,6 +7,8 @@ ToolKit · 本地运行的在线效率工具集合(部署在 `https://moonsyan.g
 
 站点同时承载 **站长工具推荐** 栏目:MarkdownSoft 桌面 Markdown 编辑器的产品介绍页(`/markdownsoft`)。
 
+内置四套主题(右上角下拉切换,选择持久化到本机,首屏无闪烁):亮色(鼠尾草绿)/ 暗色 / 海洋(天青)/ 玫瑰(蔷薇粉)。
+
 ## 本地开发
 
 ```bash
@@ -39,8 +41,9 @@ src/
 │   └── views.ts  # 客户端工具的 ToolView 动态导入(服务端工具静态版不挂载)
 ├── components/   # AppHeader / AppFooter / PrivacyBanner / 工具卡片
 ├── stores/       # pinia:主题 / 收藏 / 最近使用 / 分享状态
+├── themes/       # 四套主题 token(亮色/暗色/海洋/玫瑰)
 ├── composables/  # usePageSeo(DOM 版)/ useToolSearch / useSharedOptions
-├── styles/       # 全局设计令牌(柔和极简,明暗主题,Element Plus 主色对齐)
+├── styles/       # 全局基础样式(EP 圆角对齐、通用按钮/空态、细滚动条)
 └── router/       # vue-router(history 模式)
 ```
 

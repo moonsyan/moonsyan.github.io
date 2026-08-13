@@ -85,8 +85,13 @@ const tools = computed(() =>
 }
 .tool-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+}
+@media (max-width: 1240px) {
+  .tool-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 @media (max-width: 1000px) {
   .tool-grid {

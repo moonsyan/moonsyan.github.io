@@ -68,7 +68,7 @@ async function copyResult() {
         id="hash-input"
         v-model="input"
         type="textarea"
-        :rows="8"
+        :rows="10"
         placeholder="粘贴要计算摘要的文本"
         resize="vertical"
       />
@@ -109,7 +109,7 @@ async function copyResult() {
       </el-radio-group>
     </div>
 
-    <p class="privacy-hint">🛡 本地处理：基于浏览器 Web Crypto 计算，输入内容不会发送到服务器。</p>
+    <p class="privacy-hint">本地处理：基于浏览器 Web Crypto 计算，输入内容不会发送到服务器。</p>
   </div>
 </template>
 
@@ -130,5 +130,4 @@ async function copyResult() {
 }
 .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .mode-group { margin-left: auto; }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

@@ -147,7 +147,7 @@ function rows(res: TimestampResult | null) {
       <el-button @click="clearAll">清空</el-button>
     </div>
 
-    <p class="privacy-hint">🛡 本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
+    <p class="privacy-hint">本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
   </div>
 </template>
 
@@ -176,5 +176,4 @@ function rows(res: TimestampResult | null) {
 }
 .kv-copy:hover { color: var(--accent-deep); background: var(--accent-tint); }
 .controls { display: flex; gap: 8px; }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

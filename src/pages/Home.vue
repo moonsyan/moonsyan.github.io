@@ -122,8 +122,8 @@ function submitSearch() {
         </p>
       </div>
       <div class="rec-actions">
-        <NuxtLink class="rec-btn primary" to="/markdownsoft">查看详情</NuxtLink>
-        <a class="rec-btn ghost" :href="RELEASE_URL" target="_blank" rel="noopener">下载</a>
+        <NuxtLink class="btn primary" to="/markdownsoft">查看详情</NuxtLink>
+        <a class="btn ghost" :href="RELEASE_URL" target="_blank" rel="noopener">下载</a>
       </div>
     </div>
   </section>
@@ -138,6 +138,8 @@ function submitSearch() {
 .hero {
   text-align: center;
   padding: 72px 0 8px;
+  /* 顶部柔和主色光晕：极淡径向渐变，向下自然消失 */
+  background: radial-gradient(ellipse 65% 55% at 50% -12%, var(--accent-ring), transparent 72%);
 }
 .hero-badge {
   display: inline-flex;
@@ -260,12 +262,16 @@ function submitSearch() {
   box-shadow: var(--shadow-sm);
 }
 .pill.on {
-  background: var(--text-1);
-  color: var(--bg-page);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 16px var(--accent-ring);
+}
+.pill.on:hover {
+  background: var(--accent-deep);
 }
 .tool-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 
@@ -330,34 +336,12 @@ function submitSearch() {
   gap: 10px;
   flex-shrink: 0;
 }
-.rec-btn {
-  padding: 10px 22px;
-  border-radius: 999px;
-  font-size: 13.5px;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition);
-}
-.rec-btn.primary {
-  background: var(--text-1);
-  color: var(--bg-page);
-}
-.rec-btn.primary:hover {
-  background: var(--accent-deep);
-  color: #fff;
-}
-.rec-btn.ghost {
-  background: transparent;
-  color: var(--text-2);
-  border: 1px solid var(--border);
-}
-.rec-btn.ghost:hover {
-  color: var(--accent-deep);
-  border-color: var(--accent);
-}
 
+@media (max-width: 1240px) {
+  .tool-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 @media (max-width: 1000px) {
   .tool-grid {
     grid-template-columns: repeat(2, 1fr);

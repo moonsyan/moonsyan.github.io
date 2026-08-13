@@ -90,7 +90,7 @@ function downloadAll() {
       <div v-else-if="!error" class="result-empty">点击"生成"后在此展示结果</div>
     </section>
 
-    <p class="privacy-hint">🛡 本地处理：使用浏览器安全随机源生成，不经过任何服务器。</p>
+    <p class="privacy-hint">本地处理：使用浏览器安全随机源生成，不经过任何服务器。</p>
   </div>
 </template>
 
@@ -101,7 +101,7 @@ function downloadAll() {
 .field-label { font-size: 13px; font-weight: 600; }
 .result-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .result-pre {
-  margin: 0; padding: 14px; max-height: 320px; overflow: auto;
+  margin: 0; padding: 14px; max-height: 460px; overflow: auto;
   background: var(--bg-soft); border: 1px solid var(--border-light);
   border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 13px;
 }
@@ -109,5 +109,4 @@ function downloadAll() {
   padding: 24px 14px; text-align: center; color: var(--text-3); font-size: 13px;
   background: var(--bg-soft); border: 1px dashed var(--border); border-radius: var(--radius-md);
 }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

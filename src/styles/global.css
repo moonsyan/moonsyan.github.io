@@ -1,66 +1,32 @@
-/* 全局设计令牌：柔和极简（风格 Demo V5 定稿）
-   暖灰绿纸白底 + 鼠尾草绿主色，大圆角、轻阴影、大留白、轻字重。
-   明暗主题只切换颜色变量，不改变尺寸，避免布局跳动（WEB-008）。 */
+/* 全局基础样式（柔和极简，风格 Demo V5 定稿）
+   主题 token（页面/卡片/文字/主色/阴影/EP 主色）位于 src/themes/*.css 四套主题；
+   本文件只保留非主题的基础层：字体、EP 圆角对齐、通用组件类与滚动条。 */
 
 :root {
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
     'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
 
-  --bg-page: #f6f7f4;
-  --bg-card: #ffffff;
-  --bg-soft: #f0f2ec;
-  --bg-hover: #edf0e9;
-  --text-1: #39423c;
-  --text-2: #778079;
-  --text-3: #aab2aa;
-  --border: #e7eae4;
-  --border-light: #eef1ea;
-  --accent: #5f9e7e;
-  --accent-deep: #48876a;
-  --accent-tint: #edf4ef;
-  --accent-ring: rgba(95, 158, 126, 0.16);
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 18px;
-  /* 柔和阴影：近距轻影 + 悬停时的弥散上浮影 */
-  --shadow-sm: 0 1px 2px rgba(57, 66, 60, 0.04);
-  --shadow-md: 0 16px 40px rgba(57, 66, 60, 0.09);
   --transition: 200ms cubic-bezier(0.25, 0.7, 0.35, 1);
 
-  /* Element Plus 主色对齐（柔和鼠尾草绿） */
-  --el-color-primary: #5f9e7e;
-  --el-color-primary-light-3: #82b398;
-  --el-color-primary-light-5: #a4c7b4;
-  --el-color-primary-light-7: #c7dbd0;
-  --el-color-primary-light-8: #d8e7df;
-  --el-color-primary-light-9: #edf4ef;
-  --el-color-primary-dark-2: #48876a;
-}
-
-html[data-theme='dark'] {
-  --bg-page: #151815;
-  --bg-card: #1d211d;
-  --bg-soft: #242923;
-  --bg-hover: #282e27;
-  --text-1: #e9ece8;
-  --text-2: #a5aea5;
-  --text-3: #6e776e;
-  --border: #2c322b;
-  --border-light: #242a23;
-  --accent: #7cc0a2;
-  --accent-deep: #95cfb4;
-  --accent-tint: #1e2b24;
-  --accent-ring: rgba(124, 192, 162, 0.2);
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.4);
-
-  --el-color-primary: #7cc0a2;
-  --el-color-primary-dark-2: #95cfb4;
+  /* Element Plus 圆角对齐：全部控件（输入框/按钮/下拉/弹窗）统一柔和圆角 */
+  --el-border-radius-base: 10px;
+  --el-border-radius-small: 8px;
+  --el-border-radius-round: 999px;
+  --el-dialog-border-radius: 16px;
+  --el-messagebox-border-radius: 16px;
+  --el-popper-border-radius: 10px;
 }
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -86,12 +52,13 @@ a {
 }
 
 .container {
-  max-width: 1080px;
+  /* 全站统一页宽：与工具运行区（1380px）一致，头部/页脚/列表页整体协调 */
+  max-width: 1380px;
   margin: 0 auto;
   padding: 0 28px;
 }
 
-/* 本地徽标 */
+/* 本地徽标（客户端工具：本地运行，输入不上传） */
 .tag-local {
   display: inline-block;
   font-size: 11px;
@@ -100,6 +67,52 @@ a {
   background: var(--accent-tint);
   color: var(--accent-deep);
   font-weight: 500;
+}
+
+/* 通用按钮：primary（主色实底）/ ghost（描边）/ soft（浅色底）
+   页面级 CTA 统一复用，避免各处重复定义（风格锁定） */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: none;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  user-select: none;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn.primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn.primary:hover {
+  background: var(--accent-deep);
+  box-shadow: var(--shadow-md);
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--text-2);
+  border: 1px solid var(--border);
+}
+.btn.ghost:hover {
+  color: var(--accent-deep);
+  border-color: var(--accent);
+  background: var(--accent-tint);
+}
+.btn.soft {
+  background: var(--accent-tint);
+  color: var(--accent-deep);
+}
+.btn.soft:hover {
+  background: color-mix(in srgb, var(--accent-tint) 80%, var(--accent) 20%);
 }
 
 /* 通用空状态（无 Element Plus 依赖的柔和空态卡片） */
@@ -132,4 +145,126 @@ a {
 }
 .soft-empty .soft-empty-action:hover {
   background: var(--accent-deep);
+}
+
+/* Element Plus 单选按钮组：分段方角 → 柔和胶囊（风格锁定，全部工具自动生效）。
+   注意：el-radio-button 有独立 chunk CSS 会按需后注入，覆盖规则必须用双类选择器
+   提升特异性（(0,2,0) > 原版 (0,1,0)），否则被 chunk 原版样式覆盖。 */
+.el-radio-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: var(--bg-soft);
+  border-radius: 999px;
+}
+.el-radio-group .el-radio-button {
+  --el-radio-button-checked-bg-color: var(--accent);
+  --el-radio-button-checked-border-color: var(--accent);
+  --el-radio-button-checked-text-color: #fff;
+}
+.el-radio-group .el-radio-button__inner {
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-2);
+  font-size: 13px;
+  font-family: inherit;
+  padding: 6px 16px;
+  transition: background var(--transition), color var(--transition);
+}
+.el-radio-group .el-radio-button__inner:hover {
+  color: var(--text-1);
+}
+.el-radio-group .el-radio-button.is-active .el-radio-button__inner {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* 工具运行区隐私提示：主色圆点代替 emoji 盾牌（无 emoji 政策，风格统一） */
+.privacy-hint {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  color: var(--text-3);
+  margin: 0;
+}
+.privacy-hint::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
+/* 工具运行区两栏：等高 + 输入输出弹性撑满（更大工作区，全部工具自动生效）。
+   用 :has(.el-textarea) 门控 —— 只有含文本域的工具才会被拉伸；
+   表单类工具（颜色转换/单位换算等）保持自然高度，避免空白。
+   各工具 scoped 保留自己的 grid-template-columns；此处只负责高度与弹性。 */
+.run-grid:has(.el-textarea) {
+  align-items: stretch;
+  min-height: 600px;
+}
+.run-grid:has(.el-textarea) > section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.run-grid .el-textarea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.run-grid .el-textarea__inner {
+  flex: 1;
+  min-height: 320px;
+  resize: vertical;
+}
+/* 结果滚动区（JSON 树 / Markdown 预览 / 格式化输出）随列等高填充 */
+.run-grid:has(.el-textarea) section > .jt-body,
+.run-grid:has(.el-textarea) section > .md-preview,
+.run-grid:has(.el-textarea) section > .result-pre {
+  flex: 1;
+}
+@media (max-width: 768px) {
+  .run-grid:has(.el-textarea) {
+    min-height: 0;
+  }
+}
+
+/* 细滚动条（渐进增强，WebKit/Firefox） */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3);
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

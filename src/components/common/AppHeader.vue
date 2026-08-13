@@ -5,13 +5,24 @@
  * 图标按钮均提供可访问名称（SEO-004）。
  * 静态版不提供匿名反馈入口（依赖服务端 API）。
  */
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useThemeStore } from '~/stores/theme'
+import { useThemeStore, THEMES, type ThemeName } from '~/stores/theme'
+import { Sunny, Moon, MostlyCloudy, Cherry, ArrowDown } from '@element-plus/icons-vue'
 
 const theme = useThemeStore()
 const router = useRouter()
 const keyword = ref('')
+
+const themeIcons = { light: Sunny, dark: Moon, ocean: MostlyCloudy, rose: Cherry } as const
+const currentIcon = computed(() => themeIcons[theme.theme])
+const currentLabel = computed(() => THEMES.find((t) => t.name === theme.theme)?.label ?? '亮色')
+
+function onThemeCommand(name: ThemeName | string | number | object) {
+  if (typeof name === 'string' && name in themeIcons) {
+    theme.set(name as ThemeName)
+  }
+}
 
 function submitSearch() {
   const q = keyword.value.trim()
@@ -47,13 +58,26 @@ function submitSearch() {
       </form>
 
       <div class="topbar-actions">
-        <button
-          class="icon-btn"
-          :aria-label="theme.theme === 'dark' ? '切换到亮色主题' : '切换到暗色主题'"
-          @click="theme.toggle()"
-        >
-          ◐
-        </button>
+        <el-dropdown trigger="click" @command="onThemeCommand">
+          <button class="theme-btn" :aria-label="`当前主题：${currentLabel}，点击切换`">
+            <el-icon class="theme-icon" aria-hidden="true"><component :is="currentIcon" /></el-icon>
+            <span class="theme-label">{{ currentLabel }}</span>
+            <el-icon class="theme-caret" aria-hidden="true"><ArrowDown /></el-icon>
+          </button>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item
+                v-for="t in THEMES"
+                :key="t.name"
+                :command="t.name"
+                :class="{ 'theme-item-on': theme.theme === t.name }"
+              >
+                <el-icon aria-hidden="true"><component :is="themeIcons[t.name]" /></el-icon>
+                {{ t.label }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
     </div>
   </header>
@@ -61,12 +85,14 @@ function submitSearch() {
 
 <style scoped>
 .topbar {
-  height: 68px;
-  background: color-mix(in srgb, var(--bg-page) 88%, transparent);
-  backdrop-filter: blur(10px);
+  height: 74px;
+  background: color-mix(in srgb, var(--bg-page) 86%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 60;
+  border-bottom: 1px solid var(--border-light);
 }
 .topbar-inner {
   display: flex;
@@ -171,23 +197,46 @@ function submitSearch() {
   gap: 6px;
   flex-shrink: 0;
 }
-.icon-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
-  border: none;
-  background: none;
-  color: var(--text-2);
-  cursor: pointer;
-  font-size: 15px;
-  display: flex;
+.theme-btn {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-2);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
   transition: all var(--transition);
 }
-.icon-btn:hover {
+.theme-btn:hover {
   color: var(--accent-deep);
-  background: var(--accent-tint);
+  border-color: var(--border);
+}
+.theme-icon {
+  font-size: 15px;
+  color: var(--accent);
+}
+.theme-caret {
+  font-size: 11px;
+  color: var(--text-3);
+}
+:deep(.theme-item-on) {
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+@media (max-width: 640px) {
+  .theme-label,
+  .theme-caret {
+    display: none;
+  }
+  .theme-btn {
+    padding: 0 11px;
+  }
 }
 @media (max-width: 1000px) {
   .topnav {

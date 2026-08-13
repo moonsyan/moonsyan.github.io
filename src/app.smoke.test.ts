@@ -9,6 +9,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { registerGlobals } from './registerGlobals'
+import { useThemeStore } from './stores/theme'
 
 let app: ReturnType<typeof createApp>
 
@@ -84,5 +85,36 @@ describe('应用冒烟测试', () => {
 
   it('未知路径兜底 404', async () => {
     await goto('/definitely-not-exist', '404')
+  })
+
+  it('四套主题可切换并持久化', async () => {
+    await goto('/')
+    const theme = useThemeStore()
+    for (const t of ['light', 'dark', 'ocean', 'rose'] as const) {
+      theme.set(t)
+      expect(document.documentElement.dataset.theme).toBe(t)
+    }
+    expect(localStorage.getItem('toolkit:theme')).toBe('rose')
+  })
+
+  it('JSON 格式化输出可折叠树形结果', async () => {
+    await goto('/tools/json-formatter', 'JSON 文本')
+    // 输入示例并触发 v-model
+    const textarea = document.querySelector('.el-textarea textarea') as HTMLTextAreaElement
+    textarea.value = '{"a":1,"b":{"c":2}}'
+    textarea.dispatchEvent(new Event('input', { bubbles: true }))
+    await new Promise((r) => setTimeout(r, 60))
+    // 点击执行
+    const execBtn = [...document.querySelectorAll('.controls button')].find(
+      (b) => b.textContent?.includes('执行'),
+    ) as HTMLButtonElement
+    execBtn.click()
+    // 轮询等待树形结果出现
+    for (let i = 0; i < 100; i++) {
+      if ((document.body.textContent ?? '').includes('个节点')) break
+      await new Promise((r) => setTimeout(r, 50))
+    }
+    expect(document.body.textContent).toContain('个节点')
+    expect(document.querySelectorAll('.jt-row').length).toBeGreaterThan(3)
   })
 })

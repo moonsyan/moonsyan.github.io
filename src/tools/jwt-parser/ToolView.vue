@@ -59,7 +59,7 @@ function pretty(value: unknown): string {
         id="jwt-input"
         v-model="input"
         type="textarea"
-        :rows="6"
+        :rows="8"
         placeholder="粘贴 JWT，格式为 xxx.yyy.zzz 三段"
         resize="vertical"
       />
@@ -104,7 +104,7 @@ function pretty(value: unknown): string {
       <el-button link type="primary" @click="loadExample">加载示例</el-button>
     </div>
 
-    <p class="privacy-hint">🛡 本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
+    <p class="privacy-hint">本地处理：所有计算在浏览器内完成，输入内容不会发送到服务器。</p>
   </div>
 </template>
 
@@ -118,7 +118,7 @@ function pretty(value: unknown): string {
 @media (max-width: 768px) { .run-grid { grid-template-columns: 1fr; } }
 .result-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .result-pre {
-  margin: 0; padding: 14px; max-height: 280px; overflow: auto;
+  margin: 0; padding: 14px; max-height: 440px; overflow: auto;
   background: var(--bg-soft); border: 1px solid var(--border-light);
   border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 13px;
 }
@@ -127,5 +127,4 @@ function pretty(value: unknown): string {
   background: var(--bg-soft); border: 1px dashed var(--border); border-radius: var(--radius-md);
 }
 .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

@@ -24,6 +24,7 @@
 .footer {
   padding: 64px 0 48px;
   margin-top: 56px;
+  border-top: 1px solid var(--border-light);
 }
 .footer-inner {
   display: flex;

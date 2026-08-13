@@ -1,0 +1,28 @@
+/* 海洋主题：海盐纸白底 + 天青蓝（冷调清爽） */
+
+html[data-theme='ocean'] {
+  --bg-page: #f1f5f8;
+  --bg-card: #ffffff;
+  --bg-soft: #e9eff4;
+  --bg-hover: #e3ebf1;
+  --text-1: #2b3a46;
+  --text-2: #67798a;
+  --text-3: #9cacba;
+  --border: #dbe5ec;
+  --border-light: #e7eef4;
+  --accent: #4c97c2;
+  --accent-deep: #3a7ea8;
+  --accent-tint: #e5f0f7;
+  --accent-ring: rgba(76, 151, 194, 0.16);
+  --shadow-sm: 0 1px 2px rgba(43, 58, 70, 0.05);
+  --shadow-md: 0 16px 40px rgba(43, 58, 70, 0.1);
+
+  /* Element Plus 主色对齐（天青蓝） */
+  --el-color-primary: #4c97c2;
+  --el-color-primary-light-3: #71abc9;
+  --el-color-primary-light-5: #96c0d8;
+  --el-color-primary-light-7: #bcd4e5;
+  --el-color-primary-light-8: #d2e2ee;
+  --el-color-primary-light-9: #e5f0f7;
+  --el-color-primary-dark-2: #3a7ea8;
+}

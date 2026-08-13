@@ -112,17 +112,17 @@ usePageSeo({
   padding: 12px 26px;
   border: none;
   border-radius: 999px;
-  background: var(--text-1);
-  color: var(--bg-page);
+  background: var(--accent);
+  color: #fff;
   font-size: 14px;
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  transition: background var(--transition);
+  transition: background var(--transition), box-shadow var(--transition);
 }
 .sr-btn:hover {
   background: var(--accent-deep);
-  color: #fff;
+  box-shadow: var(--shadow-md);
 }
 .sr-clear {
   padding: 12px 18px;
@@ -145,8 +145,13 @@ usePageSeo({
 }
 .tool-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+}
+@media (max-width: 1240px) {
+  .tool-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 @media (max-width: 1000px) {
   .tool-grid {

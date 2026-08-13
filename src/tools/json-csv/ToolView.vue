@@ -96,7 +96,7 @@ function downloadResult() {
       <el-button @click="clearAll">清空</el-button>
       <el-button link type="primary" @click="input = EXAMPLE_JSON">加载示例</el-button>
     </div>
-    <p class="privacy-hint">🛡 本地处理：列头取所有记录键的并集，嵌套字段按所选策略展开，不会静默丢字段。</p>
+    <p class="privacy-hint">本地处理：列头取所有记录键的并集，嵌套字段按所选策略展开，不会静默丢字段。</p>
   </div>
 </template>
 
@@ -107,7 +107,7 @@ function downloadResult() {
 .field-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
 .result-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .result-pre {
-  margin: 0; padding: 14px; max-height: 320px; overflow: auto;
+  margin: 0; padding: 14px; max-height: 460px; overflow: auto;
   background: var(--bg-soft); border: 1px solid var(--border-light);
   border-radius: var(--radius-md); font-family: var(--font-mono);
   font-size: 13px; white-space: pre-wrap; word-break: break-all;
@@ -117,5 +117,4 @@ function downloadResult() {
   background: var(--bg-soft); border: 1px dashed var(--border); border-radius: var(--radius-md);
 }
 .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.privacy-hint { font-size: 12.5px; color: var(--text-3); margin: 0; }
 </style>

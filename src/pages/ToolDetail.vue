@@ -7,6 +7,7 @@
  */
 import { computed, defineAsyncComponent, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { InfoFilled } from '@element-plus/icons-vue'
 import { toolBySlug, toolsByCategory } from '~/tools/registry'
 import { toolViewComponents } from '~/tools/views'
 import { categoryBySlug } from '~/tools/categories'
@@ -107,6 +108,7 @@ onMounted(() => {
       <div class="run-panel">
         <component :is="ToolView" v-if="ToolView" :key="tool.slug" />
         <div v-else-if="tool.execution !== 'client'" class="soft-empty static-note">
+          <span class="static-icon" aria-hidden="true"><el-icon><InfoFilled /></el-icon></span>
           <b>{{ tool.name }}</b> 属于「{{ executionTag }}」工具，需要后端服务支持
           <br />
           当前站点为纯静态部署，部署后端（FastAPI）后即可在此使用该工具
@@ -132,6 +134,7 @@ onMounted(() => {
 <style scoped>
 .section {
   padding-top: 36px;
+  /* 页宽已由全局 .container 统一为 1380px（与工具运行区一致） */
 }
 .crumb {
   display: flex;
@@ -176,12 +179,25 @@ onMounted(() => {
 }
 .run-panel {
   background: var(--bg-card);
+  border: 1px solid var(--border-light);
   border-radius: 22px;
   box-shadow: var(--shadow-sm);
-  padding: 28px;
+  padding: 32px;
 }
 .static-note {
   background: var(--bg-page);
+}
+.static-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--bg-soft);
+  color: var(--text-3);
+  font-size: 20px;
+  margin-bottom: 14px;
 }
 .related {
   margin-top: 44px;
