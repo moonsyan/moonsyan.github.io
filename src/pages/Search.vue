@@ -5,6 +5,7 @@
  */
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { Search } from '@element-plus/icons-vue'
 import { useToolSearch } from '~/composables/useToolSearch'
 import { usePageSeo } from '~/composables/usePageSeo'
 
@@ -33,7 +34,10 @@ usePageSeo({
 
 <template>
   <section class="container section">
-    <h1 class="page-title">搜索工具</h1>
+    <div class="page-head">
+      <span class="page-head-icon" aria-hidden="true"><el-icon><Search /></el-icon></span>
+      <h1 class="page-title">搜索工具</h1>
+    </div>
     <form class="search-row" role="search" @submit.prevent="submit">
       <span class="sr-icon" aria-hidden="true">⌕</span>
       <input
@@ -67,11 +71,17 @@ usePageSeo({
 .section {
   padding-top: 36px;
 }
+.page-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
 .page-title {
   font-size: 26px;
   font-weight: 600;
   letter-spacing: -0.015em;
-  margin: 0 0 20px;
+  margin: 0;
 }
 .search-row {
   position: relative;

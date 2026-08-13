@@ -201,6 +201,20 @@ a {
   flex-shrink: 0;
 }
 
+/* 信息页页头图标徽章（FAQ/收藏/最近/搜索统一） */
+.page-head-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--accent-tint);
+  color: var(--accent-deep);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
 /* 工具运行区两栏：等高 + 输入输出弹性撑满（更大工作区，全部工具自动生效）。
    用 :has(.el-textarea) 门控 —— 只有含文本域的工具才会被拉伸；
    表单类工具（颜色转换/单位换算等）保持自然高度，避免空白。

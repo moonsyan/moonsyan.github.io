@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /** 常见问题页：关于隐私与使用方式的公开说明（顶部导航独立入口）。 */
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { InfoFilled, Lock } from '@element-plus/icons-vue'
 import { useFavoritesStore } from '~/stores/favorites'
 import { useRecentStore } from '~/stores/recent'
 import { usePageSeo } from '~/composables/usePageSeo'
@@ -50,8 +51,13 @@ async function clearLocalData() {
 
 <template>
   <section class="container section">
-    <h1 class="page-title">常见问题</h1>
-    <p class="page-desc">关于数据安全与使用方式</p>
+    <div class="page-head">
+      <span class="page-head-icon" aria-hidden="true"><el-icon><InfoFilled /></el-icon></span>
+      <div>
+        <h1 class="page-title">常见问题</h1>
+        <p class="page-desc">关于数据安全与使用方式</p>
+      </div>
+    </div>
 
     <el-collapse class="faq">
       <el-collapse-item v-for="(item, i) in faqs" :key="i" :title="item.q" :name="i">
@@ -60,14 +66,19 @@ async function clearLocalData() {
     </el-collapse>
 
     <section id="privacy" class="privacy-note">
-      <h2>隐私说明</h2>
+      <h2>
+        <span class="pn-icon" aria-hidden="true"><el-icon><Lock /></el-icon></span>
+        隐私说明
+      </h2>
       <ul>
         <li>客户端工具在浏览器本地执行，输入内容不发送到服务器。</li>
         <li>服务端与文件工具需部署后端后使用；部署后服务端工具仅上传必要参数，文件工具的文件临时存储且默认 24 小时内删除。</li>
         <li>收藏与最近使用仅保存在本机 localStorage，不包含输入内容。</li>
         <li>本站不收集、不上传任何输入内容与使用数据。</li>
       </ul>
-      <el-button type="danger" plain @click="clearLocalData">一键清除本站本地数据</el-button>
+      <div class="pn-actions">
+        <el-button type="danger" plain @click="clearLocalData">一键清除本站本地数据</el-button>
+      </div>
     </section>
   </section>
 </template>
@@ -75,34 +86,142 @@ async function clearLocalData() {
 <style scoped>
 .section {
   padding-top: 36px;
-  max-width: 760px;
+  max-width: 780px;
+}
+.page-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 .page-title {
   font-size: 26px;
   font-weight: 600;
   letter-spacing: -0.015em;
-  margin: 0 0 4px;
+  margin: 0 0 2px;
 }
 .page-desc {
   font-size: 13.5px;
   color: var(--text-3);
-  margin: 0 0 24px;
+  margin: 0;
 }
+
+/* 折叠面板：整块卡片化（柔和圆角 + 轻阴影），逐条分隔 */
+.faq {
+  border: none;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 8px 0;
+}
+.faq :deep(.el-collapse-item) {
+  border-bottom: 1px solid var(--border-light);
+}
+.faq :deep(.el-collapse-item:last-child) {
+  border-bottom: none;
+}
+.faq :deep(.el-collapse-item__header) {
+  height: auto;
+  padding: 16px 22px 16px 20px;
+  font-size: 14.5px;
+  font-weight: 550;
+  color: var(--text-1);
+  background: transparent;
+  border: none;
+  line-height: 1.5;
+  transition: background var(--transition), color var(--transition);
+}
+.faq :deep(.el-collapse-item__header:hover) {
+  background: var(--bg-soft);
+}
+.faq :deep(.el-collapse-item.is-active .el-collapse-item__header) {
+  color: var(--accent-deep);
+}
+/* 展开箭头：移行尾并做成圆形浅底（默认在行首，order 后移） */
+.faq :deep(.el-collapse-item__arrow) {
+  order: 3;
+  margin-left: auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  color: var(--text-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+.faq :deep(.el-collapse-item.is-active .el-collapse-item__arrow) {
+  color: var(--accent-deep);
+  background: var(--accent-tint);
+}
+.faq :deep(.el-collapse-item__wrap) {
+  border: none;
+  background: transparent;
+}
+.faq :deep(.el-collapse-item__content) {
+  padding: 0 22px 18px 20px;
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.8;
+}
+
+/* 隐私说明卡片 */
 .privacy-note {
   margin-top: 40px;
-  padding: 24px 28px;
+  padding: 26px 28px;
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
 .privacy-note h2 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
   font-size: 16px;
   font-weight: 600;
-  margin: 0 0 8px;
+  margin: 0 0 14px;
+}
+.pn-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: var(--accent-tint);
+  color: var(--accent-deep);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.privacy-note ul {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 .privacy-note li {
+  display: flex;
+  gap: 9px;
   font-size: 13.5px;
   color: var(--text-2);
-  margin-bottom: 4px;
+  line-height: 1.75;
+}
+.privacy-note li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.45;
+  margin-top: 9px;
+  flex-shrink: 0;
+}
+.pn-actions {
+  display: flex;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
 }
 </style>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /** 最近使用页（WEB-007 + 风格 Demo V5 柔和极简）：支持单条移除与全部清空，最多 50 条。 */
 import { computed, onMounted } from 'vue'
+import { Clock } from '@element-plus/icons-vue'
 import { toolBySlug } from '~/tools/registry'
 import { useRecentStore } from '~/stores/recent'
 import { usePageSeo } from '~/composables/usePageSeo'
@@ -30,9 +31,12 @@ function formatTime(ts: number): string {
 <template>
   <section class="container section">
     <div class="page-head">
-      <div>
-        <h1 class="page-title">最近使用</h1>
-        <p class="local-note">记录仅保存在本机浏览器，只记录工具与时间，不包含输入内容。</p>
+      <div class="head-main">
+        <span class="page-head-icon" aria-hidden="true"><el-icon><Clock /></el-icon></span>
+        <div>
+          <h1 class="page-title">最近使用</h1>
+          <p class="local-note">记录仅保存在本机浏览器，只记录工具与时间，不包含输入内容。</p>
+        </div>
       </div>
       <button v-if="items.length" class="clear-btn" @click="recent.clear()">全部清空</button>
     </div>
@@ -73,6 +77,11 @@ function formatTime(ts: number): string {
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 26px;
+}
+.head-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 .page-title {
   font-size: 26px;

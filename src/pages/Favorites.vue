@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /** 收藏页（WEB-006 + 风格 Demo V5 柔和极简）：数据仅保存在浏览器本地，可一键清除。 */
 import { computed, onMounted } from 'vue'
+import { Star } from '@element-plus/icons-vue'
 import { toolBySlug } from '~/tools/registry'
 import { useFavoritesStore } from '~/stores/favorites'
 import { usePageSeo } from '~/composables/usePageSeo'
@@ -26,9 +27,12 @@ const tools = computed(() =>
 <template>
   <section class="container section">
     <div class="page-head">
-      <div>
-        <h1 class="page-title">我的收藏</h1>
-        <p class="local-note">收藏仅保存在本机浏览器 localStorage，不上传、不跨设备同步。</p>
+      <div class="head-main">
+        <span class="page-head-icon" aria-hidden="true"><el-icon><Star /></el-icon></span>
+        <div>
+          <h1 class="page-title">我的收藏</h1>
+          <p class="local-note">收藏仅保存在本机浏览器 localStorage，不上传、不跨设备同步。</p>
+        </div>
       </div>
       <button v-if="tools.length" class="clear-btn" @click="favorites.clear()">全部清空</button>
     </div>
@@ -55,6 +59,11 @@ const tools = computed(() =>
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 26px;
+}
+.head-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 .page-title {
   font-size: 26px;
